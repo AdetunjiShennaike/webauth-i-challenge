@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('express');
-const bcrypt = require('bcryptjs');
+const session = require('express-session')
 require('dotenv').config();
 
 

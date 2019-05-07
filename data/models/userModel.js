@@ -12,7 +12,7 @@ module.exports = {
 
 //setup functions
 function get() {
- return db('users');
+ return db('users').select('id', 'username');
 }
 
 function getById(id) {
