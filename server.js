@@ -8,7 +8,7 @@ require('dotenv').config();
 
 const sessionConfig = {
   name: 'monster', 
-  secret: 'keep it secret, keep it safe! -gandalf', //should should .env
+  secret: process.env.SECRET, //should should .env
   cookie: {
     httpOnly: true, // true means prevent access from JavaScript code
     maxAge: 1000 * 60 * 2, 

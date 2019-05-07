@@ -19,7 +19,7 @@ server.post('/register', ( req, res ) => {
   user.password = hash;
 
   Users
-  .add(user)
+  .insert(user)
   .then(saved => {
     res.status(201).json(saved);
   })
@@ -36,6 +36,8 @@ server.post('/login', (req, res) => {
   .idCheck({ username })
   .then(user => {
     if (user && bcrypt.compareSync(password, user.password)) {
+      req.session.username = user.username
+      //creating the session username <-- cookie injection :)
       res.status(200).json( 'welcome' );
     }
     else {
@@ -45,7 +47,23 @@ server.post('/login', (req, res) => {
   .catch( err => {
     res.status(500).json( err )
   })
+})
 
+//logout
+router.get('/logout', (req, res) => {
+  if(req.session) { 
+    req.session.destroy( err => {
+      if(err) { 
+        res.send('i mean did you think i would let you leave without paying tribute?')
+      }
+      else {
+        res.send('otsukare sama desu!')
+      }
+    })
+  }
+  else {
+    res.send('you were never here to begin with') 
+  }
 })
 
 module.exports = router;
